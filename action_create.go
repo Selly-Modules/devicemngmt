@@ -61,16 +61,16 @@ func (s Service) Create(payload CreateOptions) error {
 func (payload CreateOptions) newDevice() (result Device, err error) {
 	timeNow := now()
 	device := Device{
-		ID:             mongodb.NewObjectID(),
-		DeviceID:       payload.DeviceID,
-		OSName:         getOSName(payload.UserAgent),
-		OSVersion:      getOSVersion(payload.UserAgent),
-		IP:             payload.IP,
-		Language:       getLanguage(payload.Language),
-		AuthToken:      payload.AuthToken,
-		LastActivityAt: timeNow,
-		CreatedAt:      timeNow,
-		FCMToken:       payload.FCMToken,
+		ID:              mongodb.NewObjectID(),
+		DeviceID:        payload.DeviceID,
+		OSName:          getOSName(payload.UserAgent),
+		OSVersion:       getOSVersion(payload.UserAgent),
+		IP:              payload.IP,
+		Language:        getLanguage(payload.Language),
+		AuthToken:       payload.AuthToken,
+		LastActivatedAt: timeNow,
+		CreatedAt:       timeNow,
+		FCMToken:        payload.FCMToken,
 	}
 
 	// App version

@@ -26,12 +26,9 @@ func (s Service) isDeviceIDExisted(ctx context.Context, deviceID string) bool {
 			"deviceID": deviceID,
 			"err":      err.Error(),
 		})
-	}
-	if !device.ID.IsZero() {
 		return true
 	}
-
-	return false
+	return !device.ID.IsZero()
 }
 
 func getOSName(userAgent string) string {
