@@ -20,5 +20,29 @@ type Device struct {
 	UserID          primitive.ObjectID `bson:"userID" json:"userId"`
 	AuthToken       string             `bson:"authToken" json:"authToken"`
 	FCMToken        string             `bson:"fcmToken" json:"fcmToken"`
+	Model           string             `bson:"model,omitempty" json:"model,omitempty"`
+	Manufacturer    string             `bson:"manufacturer,omitempty" json:"manufacturer,omitempty"`
 	CreatedAt       time.Time          `bson:"createdAt" json:"createdAt"`
+}
+
+// ResponseOS ...
+type ResponseOS struct {
+	Name    string `json:"name"`
+	Version string `json:"version"`
+}
+
+// ResponseDevice ...
+type ResponseDevice struct {
+	ID              primitive.ObjectID `json:"_id"`
+	DeviceID        string             `json:"deviceId"`
+	IP              string             `json:"ip"`
+	OS              ResponseOS         `json:"os"`
+	AppVersion      string             `json:"appVersion"`
+	Language        string             `json:"language"`
+	IsMobile        bool               `json:"isMobile"`
+	FCMToken        string             `json:"fcmToken"`
+	Model           string             `json:"model,omitempty"`
+	Manufacturer    string             `json:"manufacturer,omitempty"`
+	LastActivatedAt time.Time          `json:"lastActivatedAt"`
+	CreatedAt       time.Time          `json:"createdAt"`
 }
