@@ -3,50 +3,31 @@ package devicemngmt
 import (
 	"context"
 
-	"github.com/Selly-Modules/mongodb"
+	"github.com/Selly-Modules/logger"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 // FindAllDevicesByUserID ...
-func (s Service) FindAllDevicesByUserID(userID string) []ResponseDevice {
+func (s Service) FindAllDevicesByUserID(userID string) []Device {
 	var (
 		ctx    = context.Background()
 		col    = s.getDeviceCollection()
-		docs   = make([]Device, 0)
-		result = make([]ResponseDevice, 0)
+		result = make([]Device, 0)
 		cond   = bson.M{
-			"userID": mongodb.NewIDFromString(userID),
+			"userID": userID,
 		}
 	)
 
 	// Find
 	cursor, err := col.Find(ctx, cond)
 	if err != nil {
+		logger.Error("devicemngt - findAllDevicesByUserID ", logger.LogData{
+			"err": err.Error(),
+		})
 		return result
 	}
 	defer cursor.Close(ctx)
-	cursor.All(ctx, &docs)
-
-	// Get response data
-	for _, doc := range docs {
-		result = append(result, ResponseDevice{
-			ID:       doc.ID,
-			DeviceID: doc.DeviceID,
-			IP:       doc.IP,
-			OS: ResponseOS{
-				Name:    doc.OSName,
-				Version: doc.OSVersion,
-			},
-			AppVersion:      doc.AppVersion,
-			Language:        doc.Language,
-			IsMobile:        doc.IsMobile,
-			FCMToken:        doc.FCMToken,
-			Model:           doc.Model,
-			Manufacturer:    doc.Manufacturer,
-			LastActivatedAt: doc.LastActivatedAt,
-			CreatedAt:       doc.CreatedAt,
-		})
-	}
+	cursor.All(ctx, &result)
 
 	return result
 }

@@ -75,6 +75,7 @@ func (payload CreateOptions) newDevice() (result Device, err error) {
 		FCMToken:        payload.FCMToken,
 		Model:           payload.Model,
 		Manufacturer:    payload.Manufacturer,
+		UserID:          payload.UserID,
 	}
 
 	// App version
