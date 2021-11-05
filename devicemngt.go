@@ -19,8 +19,6 @@ type Config struct {
 	MongoDB MongoDBConfig
 	// Table prefix, each service has its own prefix
 	TablePrefix string
-	// Auth secret, used to sign token
-	AuthSecret string
 }
 
 // Service ...
@@ -32,9 +30,9 @@ type Service struct {
 var s *Service
 
 // Init ...
-func Init(config Config) error {
-	if config.MongoDB.Host == "" || config.TablePrefix == "" || config.AuthSecret == "" {
-		return errors.New("please provide all necessary information for init device")
+func Init(config Config) (*Service, error) {
+	if config.MongoDB.Host == "" || config.TablePrefix == "" {
+		return nil, errors.New("please provide all necessary information for init device")
 	}
 
 	// Connect MongoDB
@@ -48,7 +46,7 @@ func Init(config Config) error {
 	)
 	if err != nil {
 		fmt.Println("Cannot init module DEVICE MANAGEMENT", err)
-		return err
+		return nil, err
 	}
 
 	s = &Service{
@@ -56,7 +54,7 @@ func Init(config Config) error {
 		DB:     db,
 	}
 
-	return nil
+	return s, nil
 }
 
 // GetInstance ...

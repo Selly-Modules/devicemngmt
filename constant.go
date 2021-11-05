@@ -2,10 +2,10 @@ package devicemngmt
 
 // Constant ...
 const (
-	TableDevice = "devices"
+	tableDevice = "devices"
 
 	timezoneHCM = "Asia/Ho_Chi_Minh"
 
-	viLanguage = "vi"
-	enLanguage = "en"
+	langVi = "vi"
+	langEn = "en"
 )

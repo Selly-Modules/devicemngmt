@@ -3,30 +3,37 @@ package devicemngmt
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/Selly-Modules/logger"
 	"github.com/Selly-Modules/mongodb"
-	ua "github.com/mssola/user_agent"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-// DeviceCreate ...
-type DeviceCreate struct {
+// CreateOptions ...
+type CreateOptions struct {
 	DeviceID   string
 	UserID     string
 	UserAgent  string
 	AppVersion string
 	IP         string
 	FCMToken   string
+	AuthToken  string
 	Language   string
 }
 
 // Create ...
-func (s Service) Create(payload DeviceCreate) error {
+func (s Service) Create(payload CreateOptions) error {
 	var (
 		col = s.getDeviceCollection()
 		ctx = context.Background()
 	)
+
+	// Validate payload
+	err := payload.validate()
+	if err != nil {
+		return err
+	}
 
 	// New device data from payload
 	deviceData, err := payload.newDevice()
@@ -43,7 +50,7 @@ func (s Service) Create(payload DeviceCreate) error {
 		})
 	}
 	if !device.ID.IsZero() {
-		return errors.New("deviceID already exists")
+		return errors.New("this device is already existed")
 	}
 
 	// Create device
@@ -53,77 +60,32 @@ func (s Service) Create(payload DeviceCreate) error {
 			"doc": deviceData,
 			"err": err.Error(),
 		})
-		return errors.New("create device fail")
+		return fmt.Errorf("error when create device: %s", err.Error())
 	}
 
 	return nil
 }
 
-func (payload DeviceCreate) newDevice() (result Device, err error) {
+func (payload CreateOptions) newDevice() (result Device, err error) {
 	timeNow := now()
 	device := Device{
 		ID:             mongodb.NewObjectID(),
+		DeviceID:       payload.DeviceID,
+		OSName:         getOSName(payload.UserAgent),
+		OSVersion:      getOSVersion(payload.UserAgent),
+		IP:             payload.IP,
+		Language:       getLanguage(payload.Language),
+		AuthToken:      payload.AuthToken,
 		LastActivityAt: timeNow,
 		CreatedAt:      timeNow,
 		FCMToken:       payload.FCMToken,
 	}
-
-	// Set deviceID
-	if payload.DeviceID == "" {
-		logger.Error("devicemngt - Create: no deviceID data", logger.LogData{
-			"payload": payload,
-		})
-		err = errors.New("no deviceID data")
-		return
-	}
-	device.DeviceID = payload.DeviceID
-
-	// 	OSName, OSVersion
-	if payload.UserAgent == "" {
-		logger.Error("devicemngt - Create: no userAgent data", logger.LogData{
-			"payload": payload,
-		})
-		err = errors.New("no userAgent data")
-		return
-	}
-	uaData := ua.New(payload.UserAgent)
-	device.OSName = uaData.OSInfo().Name
-	device.OSVersion = uaData.OSInfo().Version
 
 	// App version
 	if payload.AppVersion != "" {
 		device.AppVersion = payload.AppVersion
 		device.IsMobile = true
 	}
-
-	// IP
-	if payload.IP == "" {
-		logger.Error("devicemngt - Create: no ip data", logger.LogData{
-			"payload": payload,
-		})
-		err = errors.New("no ip data")
-		return
-	}
-
-	// Language, default is vietnamese(vi)
-	if payload.Language == "" {
-		device.Language = viLanguage
-	} else {
-		device.Language = enLanguage
-	}
-
-	// userIDe
-	userID, _ := mongodb.NewIDFromString(payload.UserID)
-	if userID.IsZero() {
-		logger.Error("devicemngt - Create: invalid userID data", logger.LogData{
-			"payload": payload,
-		})
-		err = errors.New("invalid userID data")
-		return
-	}
-
-	// Generate authToken from userID
-	device.AuthToken = s.generateAuthToken(userID)
 
 	result = device
 	return
