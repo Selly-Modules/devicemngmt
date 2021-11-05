@@ -11,14 +11,16 @@ import (
 
 // CreateOptions ...
 type CreateOptions struct {
-	DeviceID   string
-	UserID     string
-	UserAgent  string
-	AppVersion string
-	IP         string
-	FCMToken   string
-	AuthToken  string
-	Language   string
+	DeviceID     string
+	UserID       string
+	UserAgent    string
+	AppVersion   string
+	IP           string
+	FCMToken     string
+	AuthToken    string
+	Language     string
+	Model        string
+	Manufacturer string
 }
 
 // Create ...
@@ -71,6 +73,9 @@ func (payload CreateOptions) newDevice() (result Device, err error) {
 		LastActivatedAt: timeNow,
 		CreatedAt:       timeNow,
 		FCMToken:        payload.FCMToken,
+		Model:           payload.Model,
+		Manufacturer:    payload.Manufacturer,
+		UserID:          payload.UserID,
 	}
 
 	// App version

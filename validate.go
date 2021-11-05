@@ -6,7 +6,7 @@ import (
 	"github.com/Selly-Modules/logger"
 )
 
-func (co CreateOptions) validate() error{
+func (co CreateOptions) validate() error {
 	// DeviceID
 	if co.DeviceID == "" {
 		logger.Error("devicemngt - Create: no deviceID data", logger.LogData{
@@ -20,7 +20,7 @@ func (co CreateOptions) validate() error{
 		logger.Error("devicemngt - Create: no userAgent data", logger.LogData{
 			"payload": co,
 		})
-		return  errors.New("no userAgent data")
+		return errors.New("no userAgent data")
 	}
 
 	// IP
