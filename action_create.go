@@ -7,7 +7,6 @@ import (
 
 	"github.com/Selly-Modules/logger"
 	"github.com/Selly-Modules/mongodb"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
 // CreateOptions ...
@@ -41,15 +40,8 @@ func (s Service) Create(payload CreateOptions) error {
 		return err
 	}
 
-	// Find device id existed or not
-	device := Device{}
-	if err = col.FindOne(ctx, bson.M{"deviceID": deviceData.DeviceID}).Decode(&device); err != nil {
-		logger.Error("devicemngt - findByDeviceID", logger.LogData{
-			"deviceID": deviceData.DeviceID,
-			"err":      err.Error(),
-		})
-	}
-	if !device.ID.IsZero() {
+	// Find deviceID existed or not
+	if s.isDeviceIDExisted(ctx, deviceData.DeviceID) {
 		return errors.New("this device is already existed")
 	}
 
