@@ -8,8 +8,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-// DeleteDeviceByDeviceID ...
-func (s Service) DeleteDeviceByDeviceID(deviceID string) error {
+// DeleteByDeviceID ...
+func (s Service) DeleteByDeviceID(deviceID string) error {
 	var (
 		ctx  = context.Background()
 		col  = s.getDeviceCollection()
@@ -20,7 +20,7 @@ func (s Service) DeleteDeviceByDeviceID(deviceID string) error {
 
 	// Delete
 	if _, err := col.DeleteOne(ctx, cond); err != nil {
-		logger.Error("devicemngt - deleteDeviceByDeviceID", logger.LogData{
+		logger.Error("devicemngt - deleteByDeviceID", logger.LogData{
 			"deviceID": deviceID,
 			"err":      err.Error(),
 		})
