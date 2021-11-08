@@ -49,3 +49,31 @@ func (co CreateOptions) validate() error {
 
 	return nil
 }
+
+func (uo UpdateOptions) validate() error {
+	// UserAgent
+	if uo.UserAgent == "" {
+		logger.Error("devicemngt - Update: no userAgent data", logger.LogData{
+			"payload": uo,
+		})
+		return errors.New("no userAgent data")
+	}
+
+	// IP
+	if uo.IP == "" {
+		logger.Error("devicemngt - Update: no ip data", logger.LogData{
+			"payload": uo,
+		})
+		return errors.New("no ip data")
+	}
+
+	// AuthToken
+	if uo.AuthToken == "" {
+		logger.Error("devicemngt - Update: no authToken data", logger.LogData{
+			"payload": uo,
+		})
+		return errors.New("no authToken data")
+	}
+
+	return nil
+}
