@@ -10,7 +10,7 @@ import (
 
 // MongoDBConfig ...
 type MongoDBConfig struct {
-	Host, User, Password, DBName, mechanism, source string
+	Host, User, Password, DBName, Mechanism, Source string
 }
 
 // Config ...
@@ -41,8 +41,8 @@ func Init(config Config) (*Service, error) {
 		config.MongoDB.User,
 		config.MongoDB.Password,
 		config.MongoDB.DBName,
-		config.MongoDB.mechanism,
-		config.MongoDB.source,
+		config.MongoDB.Mechanism,
+		config.MongoDB.Source,
 	)
 	if err != nil {
 		fmt.Println("Cannot init module DEVICE MANAGEMENT", err)
