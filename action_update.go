@@ -26,7 +26,7 @@ func (s Service) UpdateByDeviceID(deviceID string, payload UpdateOptions) error 
 		ctx  = context.Background()
 		col  = s.getDeviceCollection()
 		cond = bson.M{
-			"deviceID": deviceID,
+			"deviceId": deviceID,
 		}
 	)
 
@@ -60,7 +60,7 @@ func (s Service) UpdateByDeviceID(deviceID string, payload UpdateOptions) error 
 	_, err = col.UpdateOne(ctx, cond, updateData)
 	if err != nil {
 		logger.Error("devicemngt - updateByDeviceID", logger.LogData{
-			"deviceID": deviceID,
+			"deviceId": deviceID,
 			"err":      err.Error(),
 		})
 		return fmt.Errorf("error when update device: %s", err.Error())

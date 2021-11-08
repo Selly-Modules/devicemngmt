@@ -14,7 +14,7 @@ func (s Service) FindAllDevicesByUserID(userID string) []Device {
 		col    = s.getDeviceCollection()
 		result = make([]Device, 0)
 		cond   = bson.M{
-			"userID": userID,
+			"userId": userID,
 		}
 	)
 

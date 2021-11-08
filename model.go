@@ -9,7 +9,7 @@ import (
 // Device ...
 type Device struct {
 	ID              primitive.ObjectID `bson:"_id" json:"_id"`
-	DeviceID        string             `bson:"deviceID" json:"deviceId"` // unique
+	DeviceID        string             `bson:"deviceId" json:"deviceId"` // unique
 	IP              string             `bson:"ip" json:"ip"`
 	OSName          string             `bson:"osName" json:"osName"`
 	OSVersion       string             `bson:"osVersion" json:"osVersion"`
@@ -17,7 +17,7 @@ type Device struct {
 	Language        string             `bson:"language" json:"language"` // vi, en
 	IsMobile        bool               `bson:"isMobile" json:"isMobile"`
 	LastActivatedAt time.Time          `bson:"lastActivatedAt" json:"lastActivatedAt"`
-	UserID          string             `bson:"userID" json:"userId"`
+	UserID          string             `bson:"userId" json:"userId"`
 	AuthToken       string             `bson:"authToken" json:"authToken"`
 	FCMToken        string             `bson:"fcmToken" json:"fcmToken"`
 	Model           string             `bson:"model" json:"model"`

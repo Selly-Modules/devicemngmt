@@ -14,14 +14,14 @@ func (s Service) DeleteByDeviceID(deviceID string) error {
 		ctx  = context.Background()
 		col  = s.getDeviceCollection()
 		cond = bson.M{
-			"deviceID": deviceID,
+			"deviceId": deviceID,
 		}
 	)
 
 	// Delete
 	if _, err := col.DeleteOne(ctx, cond); err != nil {
 		logger.Error("devicemngt - deleteByDeviceID", logger.LogData{
-			"deviceID": deviceID,
+			"deviceId": deviceID,
 			"err":      err.Error(),
 		})
 		return fmt.Errorf("error when delete device: %s", err.Error())
