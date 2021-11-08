@@ -31,14 +31,9 @@ func (s Service) isDeviceIDExisted(ctx context.Context, deviceID string) bool {
 	return !device.ID.IsZero()
 }
 
-func getOSName(userAgent string) string {
+func getUserAgentData(userAgent string) (string, string, bool) {
 	uaData := ua.New(userAgent)
-	return uaData.OSInfo().Name
-}
-
-func getOSVersion(userAgent string) string {
-	uaData := ua.New(userAgent)
-	return uaData.OSInfo().Version
+	return uaData.OSInfo().Name, uaData.OSInfo().Version, uaData.Mobile()
 }
 
 func getLanguage(lang string) string {

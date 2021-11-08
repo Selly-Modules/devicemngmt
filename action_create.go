@@ -37,10 +37,7 @@ func (s Service) Create(payload CreateOptions) error {
 	}
 
 	// New device data from payload
-	deviceData, err := payload.newDevice()
-	if err != nil {
-		return err
-	}
+	deviceData := payload.newDevice()
 
 	// Find deviceID existed or not
 	if s.isDeviceIDExisted(ctx, deviceData.DeviceID) {
@@ -60,13 +57,17 @@ func (s Service) Create(payload CreateOptions) error {
 	return nil
 }
 
-func (payload CreateOptions) newDevice() (result Device, err error) {
+func (payload CreateOptions) newDevice() Device {
 	timeNow := now()
-	device := Device{
+
+	// Get userAgent data
+	osName, osVersion, isMobile := getUserAgentData(payload.UserAgent)
+
+	return Device{
 		ID:              mongodb.NewObjectID(),
 		DeviceID:        payload.DeviceID,
-		OSName:          getOSName(payload.UserAgent),
-		OSVersion:       getOSVersion(payload.UserAgent),
+		OSName:          osName,
+		OSVersion:       osVersion,
 		IP:              payload.IP,
 		Language:        getLanguage(payload.Language),
 		AuthToken:       payload.AuthToken,
@@ -76,14 +77,7 @@ func (payload CreateOptions) newDevice() (result Device, err error) {
 		Model:           payload.Model,
 		Manufacturer:    payload.Manufacturer,
 		UserID:          payload.UserID,
+		IsMobile:        isMobile,
+		AppVersion:      payload.AppVersion,
 	}
-
-	// App version
-	if payload.AppVersion != "" {
-		device.AppVersion = payload.AppVersion
-		device.IsMobile = true
-	}
-
-	result = device
-	return
 }

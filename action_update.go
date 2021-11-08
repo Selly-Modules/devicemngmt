@@ -36,11 +36,14 @@ func (s Service) UpdateByDeviceID(deviceID string, payload UpdateOptions) error 
 		return err
 	}
 
+	// Get userAgent data
+	osName, osVersion, isMobile := getUserAgentData(payload.UserAgent)
+
 	// Setup update data
 	updateData := bson.M{
 		"$set": bson.M{
-			"osName":          getOSName(payload.UserAgent),
-			"osVersion":       getOSVersion(payload.UserAgent),
+			"osName":          osName,
+			"osVersion":       osVersion,
 			"ip":              payload.IP,
 			"language":        getLanguage(payload.Language),
 			"authToken":       payload.AuthToken,
@@ -48,7 +51,7 @@ func (s Service) UpdateByDeviceID(deviceID string, payload UpdateOptions) error 
 			"model":           payload.Model,
 			"manufacturer":    payload.Manufacturer,
 			"appVersion":      payload.AppVersion,
-			"isMobile":        payload.AppVersion != "",
+			"isMobile":        isMobile,
 			"lastActivatedAt": now(),
 		},
 	}
