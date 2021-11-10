@@ -20,7 +20,7 @@ func (s Service) GetUserIDByAuthToken(authToken string) (userID string) {
 
 	// Find
 	if err := col.FindOne(ctx, cond).Decode(&device); err != nil {
-		logger.Error("devicemngt - getUserIDByAuthToken", logger.LogData{
+		logger.Error("devicemngmt - getUserIDByAuthToken", logger.LogData{
 			"authToken": authToken,
 			"err":       err.Error(),
 		})

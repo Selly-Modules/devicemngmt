@@ -9,7 +9,7 @@ import (
 func (co CreateOptions) validate() error {
 	// DeviceID
 	if co.DeviceID == "" {
-		logger.Error("devicemngt - Create: no deviceID data", logger.LogData{
+		logger.Error("devicemngmt - Create: no deviceID data", logger.LogData{
 			"payload": co,
 		})
 		return errors.New("no deviceID data")
@@ -17,7 +17,7 @@ func (co CreateOptions) validate() error {
 
 	// UserAgent
 	if co.UserAgent == "" {
-		logger.Error("devicemngt - Create: no userAgent data", logger.LogData{
+		logger.Error("devicemngmt - Create: no userAgent data", logger.LogData{
 			"payload": co,
 		})
 		return errors.New("no userAgent data")
@@ -25,7 +25,7 @@ func (co CreateOptions) validate() error {
 
 	// IP
 	if co.IP == "" {
-		logger.Error("devicemngt - Create: no ip data", logger.LogData{
+		logger.Error("devicemngmt - Create: no ip data", logger.LogData{
 			"payload": co,
 		})
 		return errors.New("no ip data")
@@ -33,7 +33,7 @@ func (co CreateOptions) validate() error {
 
 	// UserID
 	if co.UserID == "" {
-		logger.Error("devicemngt - Create: no userID data", logger.LogData{
+		logger.Error("devicemngmt - Create: no userID data", logger.LogData{
 			"payload": co,
 		})
 		return errors.New("no userID data")
@@ -41,7 +41,7 @@ func (co CreateOptions) validate() error {
 
 	// AuthToken
 	if co.AuthToken == "" {
-		logger.Error("devicemngt - Create: no authToken data", logger.LogData{
+		logger.Error("devicemngmt - Create: no authToken data", logger.LogData{
 			"payload": co,
 		})
 		return errors.New("no authToken data")
@@ -53,7 +53,7 @@ func (co CreateOptions) validate() error {
 func (uo UpdateOptions) validate() error {
 	// UserAgent
 	if uo.UserAgent == "" {
-		logger.Error("devicemngt - Update: no userAgent data", logger.LogData{
+		logger.Error("devicemngmt - Update: no userAgent data", logger.LogData{
 			"payload": uo,
 		})
 		return errors.New("no userAgent data")
@@ -61,7 +61,7 @@ func (uo UpdateOptions) validate() error {
 
 	// IP
 	if uo.IP == "" {
-		logger.Error("devicemngt - Update: no ip data", logger.LogData{
+		logger.Error("devicemngmt - Update: no ip data", logger.LogData{
 			"payload": uo,
 		})
 		return errors.New("no ip data")
@@ -69,7 +69,7 @@ func (uo UpdateOptions) validate() error {
 
 	// AuthToken
 	if uo.AuthToken == "" {
-		logger.Error("devicemngt - Update: no authToken data", logger.LogData{
+		logger.Error("devicemngmt - Update: no authToken data", logger.LogData{
 			"payload": uo,
 		})
 		return errors.New("no authToken data")

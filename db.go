@@ -24,7 +24,7 @@ func (s Service) isDeviceIDExisted(ctx context.Context, deviceID string) bool {
 	)
 
 	if err := col.FindOne(ctx, bson.M{"deviceId": deviceID}).Decode(&device); err != nil {
-		logger.Error("devicemngt - findByDeviceID", logger.LogData{
+		logger.Error("devicemngmt - findByDeviceID", logger.LogData{
 			"deviceId": deviceID,
 			"err":      err.Error(),
 		})

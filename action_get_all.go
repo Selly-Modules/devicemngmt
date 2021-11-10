@@ -21,7 +21,7 @@ func (s Service) FindAllDevicesByUserID(userID string) []Device {
 	// Find
 	cursor, err := col.Find(ctx, cond)
 	if err != nil {
-		logger.Error("devicemngt - findAllDevicesByUserID ", logger.LogData{
+		logger.Error("devicemngmt - findAllDevicesByUserID ", logger.LogData{
 			"err": err.Error(),
 		})
 		return result

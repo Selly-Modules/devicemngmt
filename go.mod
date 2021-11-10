@@ -1,4 +1,4 @@
-module github.com/selly-Modules/devicemngmt
+module github.com/Selly-Modules/devicemngmt
 
 go 1.17
 

@@ -35,6 +35,11 @@ func Init(config Config) (*Service, error) {
 		return nil, errors.New("please provide all necessary information for init device")
 	}
 
+	// If prefixTable is empty then it is devicemngmt
+	if config.TablePrefix == "" {
+		config.TablePrefix = tablePrefixDefault
+	}
+
 	// Connect MongoDB
 	db, err := mongodb.Connect(
 		config.MongoDB.Host,

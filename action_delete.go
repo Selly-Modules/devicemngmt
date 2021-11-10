@@ -20,7 +20,7 @@ func (s Service) DeleteByDeviceID(deviceID string) error {
 
 	// Delete
 	if _, err := col.DeleteOne(ctx, cond); err != nil {
-		logger.Error("devicemngt - deleteByDeviceID", logger.LogData{
+		logger.Error("devicemngmt - deleteByDeviceID", logger.LogData{
 			"deviceId": deviceID,
 			"err":      err.Error(),
 		})

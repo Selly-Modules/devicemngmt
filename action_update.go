@@ -59,7 +59,7 @@ func (s Service) UpdateByDeviceID(deviceID string, payload UpdateOptions) error 
 	// Update
 	_, err = col.UpdateOne(ctx, cond, updateData)
 	if err != nil {
-		logger.Error("devicemngt - updateByDeviceID", logger.LogData{
+		logger.Error("devicemngmt - updateByDeviceID", logger.LogData{
 			"deviceId": deviceID,
 			"err":      err.Error(),
 		})
