@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/Selly-Modules/logger"
+	"github.com/Selly-Modules/mongodb"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -13,8 +14,9 @@ func (s Service) FindAllDevicesByUserID(userID string) []Device {
 		ctx    = context.Background()
 		col    = s.getDeviceCollection()
 		result = make([]Device, 0)
+		id, _  = mongodb.NewIDFromString(userID)
 		cond   = bson.M{
-			"userId": userID,
+			"userId": id,
 		}
 	)
 

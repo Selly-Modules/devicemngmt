@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/Selly-Modules/logger"
+	"github.com/Selly-Modules/mongodb"
 )
 
 func (co CreateOptions) validate() error {
@@ -37,6 +38,9 @@ func (co CreateOptions) validate() error {
 			"payload": co,
 		})
 		return errors.New("no userID data")
+	}
+	if _, isValid := mongodb.NewIDFromString(co.UserID); !isValid {
+		return errors.New("invalid userID data")
 	}
 
 	// AuthToken

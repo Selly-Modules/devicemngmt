@@ -63,6 +63,7 @@ func (payload CreateOptions) newDevice() Device {
 	// Get userAgent data
 	osName, osVersion, isMobile := getUserAgentData(payload.UserAgent)
 
+	userID, _ := mongodb.NewIDFromString(payload.UserID)
 	return Device{
 		ID:              mongodb.NewObjectID(),
 		DeviceID:        payload.DeviceID,
@@ -76,7 +77,7 @@ func (payload CreateOptions) newDevice() Device {
 		FCMToken:        payload.FCMToken,
 		Model:           payload.Model,
 		Manufacturer:    payload.Manufacturer,
-		UserID:          payload.UserID,
+		UserID:          userID,
 		IsMobile:        isMobile,
 		AppVersion:      payload.AppVersion,
 	}

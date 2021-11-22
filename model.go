@@ -17,7 +17,7 @@ type Device struct {
 	Language        string             `bson:"language" json:"language"` // vi, en
 	IsMobile        bool               `bson:"isMobile" json:"isMobile"`
 	LastActivatedAt time.Time          `bson:"lastActivatedAt" json:"lastActivatedAt"`
-	UserID          string             `bson:"userId" json:"userId"`
+	UserID          primitive.ObjectID `bson:"userId" json:"userId"`
 	AuthToken       string             `bson:"authToken" json:"authToken"`
 	FCMToken        string             `bson:"fcmToken" json:"fcmToken"`
 	Model           string             `bson:"model" json:"model"`

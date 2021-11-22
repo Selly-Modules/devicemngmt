@@ -27,6 +27,6 @@ func (s Service) GetUserIDByAuthToken(authToken string) (userID string) {
 		return
 	}
 
-	userID = device.UserID
+	userID = device.UserID.Hex()
 	return
 }
