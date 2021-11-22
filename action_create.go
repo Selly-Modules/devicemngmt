@@ -40,7 +40,7 @@ func (s Service) Create(payload CreateOptions) error {
 	deviceData := payload.newDevice()
 
 	// Find deviceID existed or not
-	if s.IsDeviceIDExisted(ctx, deviceData.DeviceID) {
+	if s.IsDeviceIDExisted(deviceData.DeviceID) {
 		return errors.New("this device is already existed")
 	}
 

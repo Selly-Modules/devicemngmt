@@ -7,10 +7,11 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func (s Service) IsDeviceIDExisted(ctx context.Context, deviceID string) bool {
+func (s Service) IsDeviceIDExisted(deviceID string) bool {
 	var (
 		col    = s.getDeviceCollection()
 		device = Device{}
+		ctx    = context.Background()
 	)
 
 	if err := col.FindOne(ctx, bson.M{"deviceId": deviceID}).Decode(&device); err != nil {
