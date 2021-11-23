@@ -2,6 +2,7 @@ package devicemngmt
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/Selly-Modules/logger"
@@ -29,6 +30,11 @@ func (s Service) UpdateByDeviceID(deviceID string, payload UpdateOptions) error 
 			"deviceId": deviceID,
 		}
 	)
+
+	total, _ := col.CountDocuments(ctx, cond)
+	if total == 0 {
+		return errors.New("deviceId not found")
+	}
 
 	// Validate payload
 	err := payload.validate()

@@ -2,6 +2,7 @@ package devicemngmt
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/Selly-Modules/logger"
@@ -17,6 +18,11 @@ func (s Service) DeleteByDeviceID(deviceID string) error {
 			"deviceId": deviceID,
 		}
 	)
+
+	total, _ := col.CountDocuments(ctx, cond)
+	if total == 0 {
+		return errors.New("deviceId not found")
+	}
 
 	// Delete
 	if _, err := col.DeleteOne(ctx, cond); err != nil {
