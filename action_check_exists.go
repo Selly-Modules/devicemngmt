@@ -9,17 +9,17 @@ import (
 
 func (s Service) IsDeviceIDExisted(deviceID string) bool {
 	var (
-		col    = s.getDeviceCollection()
-		device = Device{}
-		ctx    = context.Background()
+		col = s.getDeviceCollection()
+		ctx = context.Background()
 	)
 
-	if err := col.FindOne(ctx, bson.M{"deviceId": deviceID}).Decode(&device); err != nil {
-		logger.Error("devicemngmt - findByDeviceID", logger.LogData{
+	total, err := col.CountDocuments(ctx, bson.M{"deviceId": deviceID})
+	if err != nil {
+		logger.Error("devicemngmt - isDeviceIDExisted", logger.LogData{
 			"deviceId": deviceID,
 			"err":      err.Error(),
 		})
 		return true
 	}
-	return !device.ID.IsZero()
+	return total != 0
 }
