@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/Selly-Modules/logger"
 	"github.com/Selly-Modules/mongodb"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -53,6 +54,8 @@ func Init(config Config) (*Service, error) {
 		fmt.Println("Cannot init module DEVICE MANAGEMENT", err)
 		return nil, err
 	}
+
+	logger.Init(fmt.Sprintf("%s-devicemngmt", config.TablePrefix), "")
 
 	s = &Service{
 		Config: config,
