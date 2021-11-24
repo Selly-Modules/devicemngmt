@@ -35,3 +35,25 @@ func (s Service) DeleteByDeviceID(deviceID string) error {
 
 	return nil
 }
+
+// DeleteByUserID ...
+func (s Service) DeleteByUserID(userID string) error {
+	var (
+		ctx  = context.Background()
+		col  = s.getDeviceCollection()
+		cond = bson.M{
+			"userId": userID,
+		}
+	)
+
+	// Delete
+	if _, err := col.DeleteMany(ctx, cond); err != nil {
+		logger.Error("devicemngmt - deleteByUserID", logger.LogData{
+			"userId": userID,
+			"err":    err.Error(),
+		})
+		return fmt.Errorf("error when delete device by userId: %s", err.Error())
+	}
+
+	return nil
+}
