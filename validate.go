@@ -55,6 +55,17 @@ func (co CreateOptions) validate() error {
 }
 
 func (uo UpdateOptions) validate() error {
+	// UserID
+	if uo.UserID == "" {
+		logger.Error("devicemngmt - Update: no userID data", logger.LogData{
+			"payload": uo,
+		})
+		return errors.New("no userID data")
+	}
+	if _, isValid := mongodb.NewIDFromString(uo.UserID); !isValid {
+		return errors.New("invalid userID data")
+	}
+
 	// UserAgent
 	if uo.UserAgent == "" {
 		logger.Error("devicemngmt - Update: no userAgent data", logger.LogData{

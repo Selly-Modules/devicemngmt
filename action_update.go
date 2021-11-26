@@ -6,11 +6,13 @@ import (
 	"fmt"
 
 	"github.com/Selly-Modules/logger"
+	"github.com/Selly-Modules/mongodb"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 // UpdateOptions ...
 type UpdateOptions struct {
+	UserID       string
 	UserAgent    string
 	AppVersion   string
 	IP           string
@@ -46,8 +48,10 @@ func (s Service) UpdateByDeviceID(deviceID string, payload UpdateOptions) error 
 	osName, osVersion, isMobile := getUserAgentData(payload.UserAgent)
 
 	// Setup update data
+	userID, _ := mongodb.NewIDFromString(payload.UserID)
 	updateData := bson.M{
 		"$set": bson.M{
+			"userId":          userID,
 			"osName":          osName,
 			"osVersion":       osVersion,
 			"ip":              payload.IP,
