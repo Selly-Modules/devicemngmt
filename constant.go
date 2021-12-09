@@ -9,4 +9,6 @@ const (
 
 	langVi = "vi"
 	langEn = "en"
+
+	limit200 = 200
 )
