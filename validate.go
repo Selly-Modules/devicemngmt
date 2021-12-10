@@ -16,14 +16,6 @@ func (co CreateOptions) validate() error {
 		return errors.New("no deviceID data")
 	}
 
-	// UserAgent
-	if co.UserAgent == "" {
-		logger.Error("devicemngmt - Create: no userAgent data", logger.LogData{
-			"payload": co,
-		})
-		return errors.New("no userAgent data")
-	}
-
 	// IP
 	if co.IP == "" {
 		logger.Error("devicemngmt - Create: no ip data", logger.LogData{
@@ -64,14 +56,6 @@ func (uo UpdateOptions) validate() error {
 	}
 	if _, isValid := mongodb.NewIDFromString(uo.UserID); !isValid {
 		return errors.New("invalid userID data")
-	}
-
-	// UserAgent
-	if uo.UserAgent == "" {
-		logger.Error("devicemngmt - Update: no userAgent data", logger.LogData{
-			"payload": uo,
-		})
-		return errors.New("no userAgent data")
 	}
 
 	// IP
