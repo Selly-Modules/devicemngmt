@@ -21,6 +21,9 @@ type CreateOptions struct {
 	Language     string
 	Model        string
 	Manufacturer string
+	OsName       string
+	OsVersion    string
+	IsMobile     bool
 }
 
 // Create ...
@@ -62,6 +65,12 @@ func (payload CreateOptions) newDevice() Device {
 
 	// Get userAgent data
 	osName, osVersion, isMobile := getUserAgentData(payload.UserAgent)
+
+	if osName == "" || osVersion == "" {
+		osName = payload.OsName
+		osVersion = payload.OsVersion
+		isMobile = payload.IsMobile
+	}
 
 	userID, _ := mongodb.NewIDFromString(payload.UserID)
 	return Device{

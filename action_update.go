@@ -21,6 +21,9 @@ type UpdateOptions struct {
 	Language     string
 	Model        string
 	Manufacturer string
+	OsName       string
+	OsVersion    string
+	IsMobile     bool
 }
 
 // UpdateByDeviceID ...
@@ -46,6 +49,11 @@ func (s Service) UpdateByDeviceID(deviceID string, payload UpdateOptions) error 
 
 	// Get userAgent data
 	osName, osVersion, isMobile := getUserAgentData(payload.UserAgent)
+	if osName == "" || osVersion == "" {
+		osName = payload.OsName
+		osVersion = payload.OsVersion
+		isMobile = payload.IsMobile
+	}
 
 	// Setup update data
 	userID, _ := mongodb.NewIDFromString(payload.UserID)
