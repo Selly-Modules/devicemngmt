@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/Selly-Modules/logger"
+	"github.com/Selly-Modules/mongodb"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -39,12 +40,18 @@ func (s Service) DeleteByDeviceID(deviceID string) error {
 // DeleteByUserID ...
 func (s Service) DeleteByUserID(userID string) error {
 	var (
-		ctx  = context.Background()
-		col  = s.getDeviceCollection()
-		cond = bson.M{
-			"userId": userID,
-		}
+		ctx = context.Background()
+		col = s.getDeviceCollection()
 	)
+
+	id, isValid := mongodb.NewIDFromString(userID)
+	if !isValid {
+		return errors.New("invalid userID data")
+	}
+
+	cond := bson.M{
+		"userId": id,
+	}
 
 	// Delete
 	if _, err := col.DeleteMany(ctx, cond); err != nil {
