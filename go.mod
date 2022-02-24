@@ -4,8 +4,7 @@ go 1.17
 
 require (
 	github.com/Selly-Modules/logger v0.0.0-20210809034923-140a51f39ec9
-	github.com/Selly-Modules/mongodb v0.0.0-20211013094205-a8ab24a96c4c
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/Selly-Modules/mongodb v1.0.1
 	github.com/mssola/user_agent v0.5.3
 	go.mongodb.org/mongo-driver v1.7.4
 )
