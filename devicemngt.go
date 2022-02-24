@@ -9,15 +9,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-// MongoDBConfig ...
-type MongoDBConfig struct {
-	Host, User, Password, DBName, Mechanism, Source string
-}
-
 // Config ...
 type Config struct {
 	// MongoDB config, for save documents
-	MongoDB MongoDBConfig
+	MongoDB mongodb.Config
 	// Table prefix, each service has its own prefix
 	TablePrefix string
 }
@@ -42,14 +37,7 @@ func Init(config Config) (*Service, error) {
 	}
 
 	// Connect MongoDB
-	db, err := mongodb.Connect(
-		config.MongoDB.Host,
-		config.MongoDB.User,
-		config.MongoDB.Password,
-		config.MongoDB.DBName,
-		config.MongoDB.Mechanism,
-		config.MongoDB.Source,
-	)
+	db, err := mongodb.Connect(config.MongoDB)
 	if err != nil {
 		fmt.Println("Cannot init module DEVICE MANAGEMENT", err)
 		return nil, err
