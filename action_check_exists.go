@@ -16,8 +16,9 @@ func (s Service) IsDeviceIDExisted(deviceID string) bool {
 	total, err := col.CountDocuments(ctx, bson.M{"deviceId": deviceID})
 	if err != nil {
 		logger.Error("devicemngmt - isDeviceIDExisted", logger.LogData{
-			"deviceId": deviceID,
-			"err":      err.Error(),
+			Source:  "devicemngmt.IsDeviceIDExisted",
+			Message: err.Error(),
+			Data:    deviceID,
 		})
 		return true
 	}

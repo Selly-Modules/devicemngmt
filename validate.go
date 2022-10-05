@@ -11,7 +11,9 @@ func (co CreateOptions) validate() error {
 	// DeviceID
 	if co.DeviceID == "" {
 		logger.Error("devicemngmt - Create: no deviceID data", logger.LogData{
-			"payload": co,
+			Source:  "devicemngmt.validate",
+			Message: "devicemngmt - Create: no deviceID data",
+			Data:    co,
 		})
 		return errors.New("no deviceID data")
 	}
@@ -19,7 +21,9 @@ func (co CreateOptions) validate() error {
 	// IP
 	if co.IP == "" {
 		logger.Error("devicemngmt - Create: no ip data", logger.LogData{
-			"payload": co,
+			Source:  "devicemngmt.validate",
+			Message: "devicemngmt - Create: no ip data",
+			Data:    co,
 		})
 		return errors.New("no ip data")
 	}
@@ -27,7 +31,9 @@ func (co CreateOptions) validate() error {
 	// UserID
 	if co.UserID == "" {
 		logger.Error("devicemngmt - Create: no userID data", logger.LogData{
-			"payload": co,
+			Source:  "devicemngmt.validate",
+			Message: "devicemngmt - Create: no userID data",
+			Data:    co,
 		})
 		return errors.New("no userID data")
 	}
@@ -38,7 +44,9 @@ func (co CreateOptions) validate() error {
 	// AuthToken
 	if co.AuthToken == "" {
 		logger.Error("devicemngmt - Create: no authToken data", logger.LogData{
-			"payload": co,
+			Source:  "devicemngmt.validate",
+			Message: "devicemngmt - Create: no authToken data",
+			Data:    co,
 		})
 		return errors.New("no authToken data")
 	}
@@ -50,7 +58,9 @@ func (uo UpdateOptions) validate() error {
 	// UserID
 	if uo.UserID == "" {
 		logger.Error("devicemngmt - Update: no userID data", logger.LogData{
-			"payload": uo,
+			Source:  "devicemngmt.validate",
+			Message: "devicemngmt - Update: no userID data",
+			Data:    uo,
 		})
 		return errors.New("no userID data")
 	}
@@ -61,7 +71,9 @@ func (uo UpdateOptions) validate() error {
 	// IP
 	if uo.IP == "" {
 		logger.Error("devicemngmt - Update: no ip data", logger.LogData{
-			"payload": uo,
+			Source:  "devicemngmt.validate",
+			Message: "devicemngmt - Update: no ip data",
+			Data:    uo,
 		})
 		return errors.New("no ip data")
 	}
@@ -69,7 +81,9 @@ func (uo UpdateOptions) validate() error {
 	// AuthToken
 	if uo.AuthToken == "" {
 		logger.Error("devicemngmt - Update: no authToken data", logger.LogData{
-			"payload": uo,
+			Source:  "devicemngmt.validate",
+			Message: "devicemngmt - Update: no authToken data",
+			Data:    uo,
 		})
 		return errors.New("no authToken data")
 	}
