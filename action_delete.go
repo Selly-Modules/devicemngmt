@@ -28,8 +28,9 @@ func (s Service) DeleteByDeviceID(deviceID string) error {
 	// Delete
 	if _, err := col.DeleteOne(ctx, cond); err != nil {
 		logger.Error("devicemngmt - deleteByDeviceID", logger.LogData{
-			"deviceId": deviceID,
-			"err":      err.Error(),
+			Source:  "devicemngmt.DeleteByDeviceID",
+			Message: err.Error(),
+			Data:    deviceID,
 		})
 		return fmt.Errorf("error when delete device: %s", err.Error())
 	}
@@ -56,8 +57,9 @@ func (s Service) DeleteByUserID(userID string) error {
 	// Delete
 	if _, err := col.DeleteMany(ctx, cond); err != nil {
 		logger.Error("devicemngmt - deleteByUserID", logger.LogData{
-			"userId": userID,
-			"err":    err.Error(),
+			Source:  "devicemngmt.DeleteByUserID",
+			Message: err.Error(),
+			Data:    userID,
 		})
 		return fmt.Errorf("error when delete device by userId: %s", err.Error())
 	}

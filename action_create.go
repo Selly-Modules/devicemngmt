@@ -51,8 +51,9 @@ func (s Service) Create(payload CreateOptions) error {
 	_, err = col.InsertOne(ctx, deviceData)
 	if err != nil {
 		logger.Error("devicemngmt - Create ", logger.LogData{
-			"doc": deviceData,
-			"err": err.Error(),
+			Source:  "devicemngmt.Create",
+			Message: err.Error(),
+			Data:    deviceData,
 		})
 		return fmt.Errorf("error when create device: %s", err.Error())
 	}

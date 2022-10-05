@@ -26,7 +26,9 @@ func (s Service) FindAllDevicesByUserID(userID string) []Device {
 	cursor, err := col.Find(ctx, cond)
 	if err != nil {
 		logger.Error("devicemngmt - findAllDevicesByUserID ", logger.LogData{
-			"err": err.Error(),
+			Source:  "devicemngmt.FindAllDevicesByUserID",
+			Message: err.Error(),
+			Data:    result,
 		})
 		return result
 	}
@@ -71,7 +73,9 @@ func (s Service) FindAllDevicesByUserIDList(userIDList []string) (result []Devic
 	cursor, err := col.Find(ctx, cond)
 	if err != nil {
 		logger.Error("devicemngmt - findAllDevicesByUserIDList ", logger.LogData{
-			"err": err.Error(),
+			Source:  "devicemngmt.FindAllDevicesByUserIDList",
+			Message: err.Error(),
+			Data:    nil,
 		})
 		return
 	}

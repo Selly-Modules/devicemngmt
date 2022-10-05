@@ -78,8 +78,9 @@ func (s Service) UpdateByDeviceID(deviceID string, payload UpdateOptions) error 
 	_, err = col.UpdateOne(ctx, cond, updateData)
 	if err != nil {
 		logger.Error("devicemngmt - updateByDeviceID", logger.LogData{
-			"deviceId": deviceID,
-			"err":      err.Error(),
+			Source:  "devicemngmt.UpdateByDeviceID",
+			Message: err.Error(),
+			Data:    deviceID,
 		})
 		return fmt.Errorf("error when update device: %s", err.Error())
 	}
